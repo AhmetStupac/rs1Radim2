@@ -61,7 +61,7 @@ Prije pokretanja aplikacije potrebno je instalirati, npr:
 
 ### 1. Pokretanje docker kontejnera za bazu 
 
-Ako se koristi DB server sa docker konfiguracijom.
+Ako se koristi DB server preko docker konfiguracije kao dio projekta.
 
 Pokrenuti Docker za DB server.
 
@@ -103,7 +103,7 @@ ili
 $env:ASPNETCORE_ENVIRONMENT='Staging'
 ```
 
-Da li korisnik mora ručno postaviti connection string?
+Da li korisnik mora ručno postaviti connection string ako koristi DB server preko dockera?
 
 4. Ažurirati bazu:
 
