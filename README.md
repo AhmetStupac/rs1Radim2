@@ -59,7 +59,9 @@ Prije pokretanja aplikacije potrebno je instalirati, npr:
 
 ## 🔧 Backend – Pokretanje API servera
 
-### 1. Pokretanje docker kontejnera za bazu
+### 1. Pokretanje docker kontejnera za bazu 
+
+Ako se koristi DB server sa docker konfiguracijom.
 
 Pokrenuti Docker za DB server.
 
@@ -85,22 +87,23 @@ Ako se koristi EF migracije:
 
 1. Postaviti `NazivProjekta.Api` kao **Startup Project** (iz ovog projekta se koristi connection string)
 2. U `Package Manager Console` postaviti `NazivProjekta.Infrastructure` kao **Default project** (u ovom projektu se nalazi EF migration)
-3. Provjeriti ili postaviti environment, jer različiti environmenti imaju različite konfiguracije, npr connection string se preuzima iz
-`appsettings.Development.json`
-`appsettings.Staging.json`
+3. Provjeriti ili postaviti environment, jer različiti environmenti imaju različite konfiguracije (npr connection string) koje se preuzimaju iz
+`appsettings.Development.json` ili `appsettings.Staging.json`
 itd.
 
-
-Promjena environmenta
+Promjena environmenta 
 
 ```Package Manager Console
 $env:ASPNETCORE_ENVIRONMENT='Development'
 ```
+
 ili
 
 ```Package Manager Console
 $env:ASPNETCORE_ENVIRONMENT='Staging'
 ```
+
+Da li korisnik mora ručno postaviti connection string?
 
 4. Ažurirati bazu:
 
