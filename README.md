@@ -81,26 +81,36 @@ docker compose down
 
 ### 2. Postavljanje baze podataka (EF migracije)
 
-Provjeriti ili postaviti environment:
-
-```powershell
-$env:ASPNETCORE_ENVIRONMENT='Development'
-```
-
-
 Ako se koristi EF migracije:
 
-1. Postaviti `NazivProjekta.Api` kao **Startup Project**
-2. U `Package Manager Console` postaviti `NazivProjekta.Infrastructure` kao **Default project**
-3. Ažurirati bazu:
+1. Postaviti `NazivProjekta.Api` kao **Startup Project** (iz ovog projekta se koristi connection string)
+2. U `Package Manager Console` postaviti `NazivProjekta.Infrastructure` kao **Default project** (u ovom projektu se nalazi EF migration)
+3. Provjeriti ili postaviti environment, jer različiti environmenti imaju različite konfiguracije, npr connection string se preuzima iz
+`appsettings.Development.json`
+`appsettings.Staging.json`
+itd.
 
-```powershell
+
+Promjena environmenta
+
+```Package Manager Console
+$env:ASPNETCORE_ENVIRONMENT='Development'
+```
+ili
+
+```Package Manager Console
+$env:ASPNETCORE_ENVIRONMENT='Staging'
+```
+
+4. Ažurirati bazu:
+
+```Package Manager Console
 update-database
 ```
 
 Ako postoji više DB konteksta:
 
-```powershell
+```Package Manager Console
 update-database -context GlavniDbContext
 update-database -context NekiDrugiDbContext
 ```
