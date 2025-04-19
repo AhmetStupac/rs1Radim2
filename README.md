@@ -1,4 +1,4 @@
-# ❓ Zašto je važno pisati README i upute za pokretanje?
+# ❓ Zašto je važno pisati README koji sadrži upute za konfiguraciju i pokretanje projekta?
 
 U realnim softverskim projektima, dokumentacija kao što je `README.md` je **nužnost**.  
 Evo nekoliko razloga zašto:
