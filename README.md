@@ -165,8 +165,8 @@ Provjeriti konfiguraciju osjetljivih podataka (`appsettings.Development.json`, `
 Primjeri build komandi:
 
 ```bash
-.uild.ps1 -ProjectName "api" -Configuration "release" -Runtime "windows"
-.uild.ps1 -ProjectName "sso" -Configuration "staging" -Runtime "linux"
+.\build.ps1 -ProjectName "api" -Configuration "release" -Runtime "windows"
+.\build.ps1 -ProjectName "sso" -Configuration "staging" -Runtime "linux"
 ```
 
 ---
