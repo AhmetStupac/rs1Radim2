@@ -1,7 +1,3 @@
-# 📘 Naziv projekta
-
-Ovo je web aplikacija razvijena pomoću **.NET Core Web API** za backend i **Angular** za frontend.  
-Aplikacija služi za ____________ (navesti svrhu – npr. vođenje evidencije korisnika, upravljanje zadacima, evidenciju prisutnosti itd.).
 # ❓ Zašto je važno pisati README i upute za pokretanje?
 
 U realnim softverskim projektima, dokumentacija kao što je `README.md` je **nužnost**.  
@@ -34,9 +30,20 @@ README se piše za **developera koji zna**:
 - kako pokrenuti lokalni server, terminal, instalirati pakete
 
 Ali **ne zna ništa o konkretnom projektu** – prvi put se susreće sa vašim repozitorijem.
+
+# README.MD – primjer readme fajla
+
+Glavni readme fajl se treba nalaziti na root repozitoriju
+
+
+# 📘 Naziv projekta
+
+Ovo je web aplikacija razvijena pomoću **.NET Core Web API** za backend i **Angular** za frontend.  
+Aplikacija služi za ____________ (navesti svrhu – npr. vođenje evidencije korisnika, upravljanje zadacima, evidenciju prisutnosti itd.).
+
 ---
 
-# README.MD – glavni readme fajl na rootu repozitorija
+
 
 
 ## ⚙️ Tehnologije i preduvjeti
