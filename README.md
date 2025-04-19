@@ -84,7 +84,8 @@ docker compose down
 Provjeriti ili postaviti environment:
 
 ```powershell
-$env:ASPNETCORE_ENVIRONMENT='Development'```
+$env:ASPNETCORE_ENVIRONMENT='Development'
+```
 
 
 Ako se koristi EF migracije:
