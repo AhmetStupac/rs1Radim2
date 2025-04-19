@@ -87,7 +87,7 @@ Ako se koristi EF migracije:
 
 1. Postaviti `NazivProjekta.Api` kao **Startup Project** (iz ovog projekta se koristi connection string)
 2. U `Package Manager Console` postaviti `NazivProjekta.Infrastructure` kao **Default project** (u ovom projektu se nalazi EF migration)
-3. Provjeriti ili postaviti environment, jer različiti environmenti imaju različite konfiguracije (npr connection string) koje se preuzimaju iz
+3. Provjeriti ili postaviti environment, jer različiti environmenti imaju različite konfiguracije koje se preuzimaju iz
 `appsettings.Development.json` ili `appsettings.Staging.json`
 itd.
 
@@ -103,7 +103,7 @@ ili
 $env:ASPNETCORE_ENVIRONMENT='Staging'
 ```
 
-Da li korisnik mora ručno postaviti connection string ako koristi DB server preko dockera?
+Da li korisnik mora ručno postaviti connection string ako koristi DB server preko dockera ili dovoljno samo pokrenuti docker i api?
 
 4. Ažurirati bazu:
 
@@ -125,8 +125,7 @@ update-database -context NekiDrugiDbContext
 Ako se koristi `.sql` skripta ili `.bak` fajl, navesti:
 
 - Lokaciju fajla
-- Da li sadrži strukturu i/ili podatke
-- Da li uključuje seeder podatke
+- Da li fajl sadrži strukturu i/ili ili uključuje seeder podatke
 
 ---
 
@@ -135,9 +134,9 @@ Ako se koristi `.sql` skripta ili `.bak` fajl, navesti:
 Provjeriti:
 
 - Da li su podaci u `.sql` fajlu ili `.bak` fajlu
-- Da li se koriste `HasData()` u `OnModelCreating()` (samo za statičke podatke vezane za kod)
-- Da li postoji servis npr. `IMyDbInitializer` koji se automatski pokreće u `Program.cs`
-- Da li postoji endpoint za ručno seedanje:
+- Da li su podaci u EF migracijama - tj koristi se `HasData()` u `OnModelCreating()` (moguće kompletana seed ovdje importovati, samo ipak preporučuje samo za statičke podatke - tj. za podatke o kojima je opvisan code, npr user roles)
+- Da li su podaci u servisi npr. `IMyDbInitializer` koji se automatski pokreće u `Program.cs`
+- Da li su podaci u endpointu i koja je adresa, npr.
 
 ```
 GET https://localhost:7100/api/devtools/seed
@@ -145,7 +144,7 @@ GET https://localhost:7100/api/devtools/seed
 
 - Da li je endpoint zaštićen autorizacijom
 - Šta se dešava pri višestrukom seedanju
-- Da li se generiše random lozinka za admin korisnika
+- Da li se generiše random lozinka za korisnike, npr. admin
 
 ---
 
@@ -216,8 +215,9 @@ export const environment = {
 
 ## 🔐 Test login podaci
 
-- Da li se lozinke generišu automatski (random) ili statično
-- Da li je aktivan 2FA
+- Da li je aktivan 2FA za korisnike iz seed podataka
+- Da li se lozinke generišu automatski (random) ili statično.
+  Ako su statične, onda treba ih navesti.
 
 | Uloga     | Email           | Lozinka     |
 |-----------|------------------|--------------|
