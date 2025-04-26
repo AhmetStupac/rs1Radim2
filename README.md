@@ -173,15 +173,6 @@ Provjeriti konfiguraciju osjetljivih podataka (`appsettings.Development.json`, `
 
 ---
 
-## 🏗 Build
-
-Primjeri build komandi:
-
-```bash
-.\build.ps1 -ProjectName "api" -Configuration "release" -Runtime "windows"
-.\build.ps1 -ProjectName "sso" -Configuration "staging" -Runtime "linux"
-```
-
 ---
 
 ## 💻 Frontend – Angular aplikacija
