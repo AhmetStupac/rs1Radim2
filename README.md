@@ -134,15 +134,16 @@ Ako se koristi `.sql` skripta ili `.bak` fajl, navesti:
 Provjeriti:
 
 - Da li su podaci u `.sql` fajlu ili `.bak` fajlu
-- Da li su podaci u EF migracijama - tj koristi se `HasData()` u `OnModelCreating()` (moguće kompletana seed ovdje importovati, samo ipak preporučuje samo za statičke podatke - tj. za podatke o kojima je opvisan code, npr user roles)
+- Da li su podaci u EF migracijama - tj koristi se `HasData()` u `OnModelCreating()` (moguće je kompletan seed podataka ovdje dodati, ipak se ovaj pristup preporučuje samo za statičke podatke - tj. za podatke o kojima je ovisan code, npr user roles)
 - Da li su podaci u servisi npr. `IMyDbInitializer` koji se automatski pokreće u `Program.cs`
 - Da li su podaci u endpointu i koja je adresa, npr.
 
 ```
-GET https://localhost:7100/api/devtools/seed
+POST https://localhost:7100/api/data-seed
+https://github.com/adil-fit-ba/rs1-2024-25/blob/main/RS1_2024_25_template_1/backend/RS1_2024_25.API/Endpoints/DataSeedEndpoints/DataSeedGenerateEndpoint.cs
 ```
 
-- Da li je endpoint zaštićen autorizacijom
+- Da li je endpoint zaštićen autorizacijom (prethodno navedeni primjer ne zahtjeva autorizaciju, međutim nije ga moguće pokrenuti ako tabela MyAppUser sadrži jedan ili više zapisa.
 - Šta se dešava pri višestrukom seedanju
 - Da li se generiše random lozinka za korisnike, npr. admin
 
