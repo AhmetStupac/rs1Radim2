@@ -11,6 +11,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { MyDialogConfirmComponent } from '../../shared/dialogs/my-dialog-confirm/my-dialog-confirm.component';
 import {MySnackbarHelperService} from '../../shared/snackbars/my-snackbar-helper.service';
 import {MyDialogSimpleComponent} from '../../shared/dialogs/my-dialog-simple/my-dialog-simple.component';
+import {StudentRestoreEndpointService} from '../../../endpoints/student-endpoints/student-restore-endpoint.service';
 
 @Component({
   selector: 'app-students',
@@ -25,13 +26,15 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   private searchSubject: Subject<string> = new Subject();
+  showDeleted: boolean = true;
 
   constructor(
     private studentGetService: StudentGetAllEndpointService,
     private studentDeleteService: StudentDeleteEndpointService,
     private snackbar: MySnackbarHelperService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private studentRestoreService: StudentRestoreEndpointService,
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +70,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       pageSize: pageSize
     }).subscribe({
       next: (data) => {
-        this.dataSource = new MatTableDataSource<StudentGetAllResponse>(data.dataItems);
+        this.dataSource = new MatTableDataSource<StudentGetAllResponse>(
+          this.showDeleted ? data.dataItems : data.dataItems.filter((s) => !s.isDeleted),);
         this.paginator.length = data.totalCount;
       },
       error: (err) => {
@@ -76,6 +80,22 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  restoreStudent(id: number) : void{
+   this.studentRestoreService.handleAsync(id).subscribe({
+     next: (data) => {
+       this.snackbar.showMessage('Successfully restored');
+       this.fetchStudents();
+
+     },
+     error: (err) => {
+       this.snackbar.showMessage('Error fetching students. Please try again.', 5000);
+        console.error('Error restoring student:', err);
+     }
+   });
+
+  }
+
 
   editStudent(id: number): void {
     this.router.navigate(['/admin/students/edit', id]);
@@ -99,7 +119,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       width: '350px',
       data: {
         title: 'Confirm Delete',
-        message: 'Are you sure you want to delete this student?'
+        message: 'Are you sure you want to delete this student?',
+        confirmButtonText: 'Obrisi'
       }
     });
 
@@ -113,13 +134,34 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  openMyConfirmDialog2(id: number): void {
+    const dialogRef = this.dialog.open(MyDialogConfirmComponent, {
+      width: '350px',
+      data: {
+        title: 'Confirm Restore',
+        message: 'Are you sure you want to restore this student?',
+        confirmButtonText: 'Restore'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('User confirmed Restore');
+        this.restoreStudent(id);
+      } else {
+        console.log('User cancelled Restore');
+      }
+    });
+  }
+
   openStudentSemesters(id:number) {
     this.dialog.open(MyDialogSimpleComponent, {
       width: '350px',
       data: {
         title: 'Ispitni zadatak',
-        message: 'Implementirajte matičnu knjigu?'
+        message: 'Implementirajte matičnu knjigu?',
       }
     });
+    this.router.navigate(['/admin/student/semester', id])
   }
 }

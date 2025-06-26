@@ -8,6 +8,10 @@
     <input (keyup)="applyFilter($event)" matInput placeholder="Search students">
   </mat-form-field>
 </div>
+<button (click)="fetchStudents()" (click) = "showDeleted = !showDeleted">
+  {{ showDeleted ? 'Sakrij obrisane' : 'Prikazi obrisane'}}
+</button>
+
 
 <div *ngIf="dataSource.data.length === 0" class="no-data">
   <p>No students to display.</p>
@@ -45,6 +49,12 @@
         Delete
       </button>
 
+      <button
+      (click)="openMyConfirmDialog2(student.id)"
+      color="warn" mat-button>
+      <mat-icon>undo</mat-icon>
+        Restore
+      </button>
       <button (click)="openStudentSemesters(student.id)" color="warn" mat-button>
         <mat-icon>description</mat-icon>
         Registry
@@ -55,7 +65,7 @@
 
   <!-- Table Header and Rows -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'obrisano' : row.isDeleted}" ></mat-row>
 </table>
 
 <mat-paginator [length]="students.length" [pageSizeOptions]="[5, 10, 20]" [pageSize]="5"
